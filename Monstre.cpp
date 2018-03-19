@@ -34,3 +34,34 @@ void Monstre::boirePotionDeVie(int nbSoin)
     if(_vie>_maxPdv)
         _vie=_maxPdv;
 }
+
+Attaque Monstre::GetAttaque(int indAttaque)
+{
+    if(_listAttaque.size()<=indAttaque)
+        return Attaque();
+    return _listAttaque[indAttaque];
+}
+
+void Monstre::SetListAttaque(std::vector<Attaque> listAttaque)
+{
+    for(int i=0; i<listAttaque.size(); i++)
+    {
+        _listAttaque.push_back(listAttaque[i]);
+    }
+}
+
+
+void Monstre::PrintAttaque()
+{
+    for(int i=0;i<4;i++)
+    {
+        if(i<_listAttaque.size())
+        {
+            cout << i+1 << ". " << _listAttaque[i].GetNom() << endl;
+        }
+        else
+        {
+            cout << i+1 << ". _______" << endl;
+        }
+    }
+}

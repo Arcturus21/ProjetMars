@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+#include "Attaque.h"
 
 class Monstre
 {
@@ -18,8 +21,13 @@ class Monstre
         bool IsAlive(){return _vie>0;};
         std::string GetNom(){return _nom;};
 
+        Attaque GetAttaque(int indAttaque);
+
+        void SetListAttaque(std::vector<Attaque> listAttaque);
+
         ///CONSOLE CONTROL
         void PrintState(){std::cout << _nom << " a " << _vie << "/" << _maxPdv << " pdv." << std::endl;};
+        void PrintAttaque();
 
     protected:
         int _vie, _maxPdv;
@@ -30,6 +38,9 @@ class Monstre
         float _vitesse;
         std::string _type;
         std::string _nom;
+
+        std::vector<Attaque> _listAttaque;
+        const static int NB_ATTAQUE_MAX=4;
 
     private:
 };
