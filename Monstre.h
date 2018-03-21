@@ -15,6 +15,7 @@ class Monstre
 
         void recevoirDegats(int nbDegats);
         void attaquer(Monstre& cible);
+        bool attaquer(Monstre& cible, const Attaque& atq);
         void boirePotionDeVie(int nbSoin);
 
         ///GETTER & SETTER

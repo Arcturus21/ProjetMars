@@ -39,8 +39,8 @@ int main()
     salameche.PrintAttaque();
 
     vector<Monstre> monstres;
-    monstres.push_back(carapuce);
     monstres.push_back(salameche);
+    monstres.push_back(carapuce);
 
     vector<int> nbPotions;
     nbPotions.push_back(1);
@@ -56,49 +56,71 @@ int main()
         }
         cout << endl;
 
-        int choix=0;
-        while(choix != 1 && choix != 2)
-        {
-            cout << "Que doit faire " << monstres[tourMonstre].GetNom() << " ?" << endl;
-            cout << "1. Attaquer" << endl << "2. Boire une Potion (" << nbPotions[tourMonstre] << " restantes)" << endl;
-            cout << "Votre choix : ";
-            cin >> choix;
-            if(choix==2 && nbPotions[tourMonstre]<=0)
-            {
-                cout << endl << "Plus de potions disponibles..." << endl;
-                choix=0;
-            }
-            if(choix!=1 && choix!=2)
-            {
-                cout << "Choix incorrecte, vous devez faire un autre choix." << endl << endl;
-            }
-        }
+        Attaque atq1, atq2;
 
-        cout << endl;
-        if(choix==1)
+        for(tourMonstre=0;tourMonstre<2;tourMonstre++)
         {
-            int indAttaque;
-            Attaque atqChoisi;
+            int choix=0;
 
-            while(atqChoisi.GetNom()=="default")
+            while(choix != 1 && choix != 2)
             {
-                cout << "Choisissez une Attaque :" << endl;
-                monstres[tourMonstre].PrintAttaque();
-                cin >> indAttaque;
-                atqChoisi=monstres[tourMonstre].GetAttaque(indAttaque-1);
+                cout << "Que doit faire " << monstres[tourMonstre].GetNom() << " ?" << endl;
+                cout << "1. Attaquer" << endl << "2. Boire une Potion (" << nbPotions[tourMonstre] << " restantes)" << endl;
+                cout << "Votre choix : ";
+                cin >> choix;
+                if(choix==2 && nbPotions[tourMonstre]<=0)
+                {
+                    cout << endl << "Plus de potions disponibles..." << endl;
+                    choix=0;
+                }
+                if(choix!=1 && choix!=2)
+                {
+                    cout << "Choix incorrecte, vous devez faire un autre choix." << endl << endl;
+                }
             }
 
-            cout << endl << monstres[tourMonstre].GetNom() << " attaque " << atqChoisi.GetNom() << " !" << endl << endl;
+            cout << endl << endl;
+            if(choix==1)
+            {
+                int indAttaque;
+                Attaque atqChoisi;
 
-            monstres[tourMonstre].attaquer(monstres[(tourMonstre+1)%2]);
+                while(atqChoisi.GetNom()=="default")
+                {
+                    cout << "Choisissez une Attaque :" << endl;
+                    monstres[tourMonstre].PrintAttaque();
+                    cin >> indAttaque;
+                    atqChoisi=monstres[tourMonstre].GetAttaque(indAttaque-1);
+                }
+
+                if(tourMonstre==0)
+                    atq1=atqChoisi;
+                else
+                    atq2=atqChoisi;
+            }
+
+            cout << endl;
         }
-        else
+
+        if(atq1.GetNom()=="default")
         {
-            monstres[tourMonstre].boirePotionDeVie(20);
-            nbPotions[tourMonstre]--;
+            monstres[0].boirePotionDeVie(20);
+            nbPotions[0]--;
         }
-        tourMonstre=(tourMonstre+1)%2;
-        cout << endl;
+        if(atq2.GetNom()=="default")
+        {
+            monstres[1].boirePotionDeVie(20);
+            nbPotions[1]--;
+        }
+        if(atq1.GetNom()!="default")
+        {
+            monstres[0].attaquer(monstres[1], atq1);
+        }
+        if(atq1.GetNom()!="default" && monstres[1].IsAlive())
+        {
+            monstres[1].attaquer(monstres[0], atq2);
+        }
+        cout << endl << endl;
     }
 
     if(!monstres[0].IsAlive())

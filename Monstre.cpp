@@ -27,6 +27,17 @@ void Monstre::attaquer(Monstre& cible)
     cible.recevoirDegats(_attaque);
 }
 
+bool Monstre::attaquer(Monstre& cible, const Attaque& atq)
+{
+    cout << endl << _nom << " attaque " << atq.GetNom() << " !" << endl;
+
+    int degat=atq.GetPuissance()/10;
+
+    cible.recevoirDegats(degat);
+
+    return true;
+}
+
 void Monstre::boirePotionDeVie(int nbSoin)
 {
     cout << _nom << " boit une potion et recupere " << nbSoin << " points de vie." << endl;

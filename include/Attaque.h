@@ -22,10 +22,10 @@ class Attaque
         Attaque(const Attaque& a);
         virtual ~Attaque();
 
-        std::string GetNom(){return _nom;};
-        float GetPuissance(){return _puissance;};
-        Type GetType(){return _type;};
-        bool IsPhysique(){return _physique;};
+        std::string GetNom() const {return _nom;};
+        float GetPuissance() const {return _puissance;};
+        Type GetType() const {return _type;};
+        bool IsPhysique() const {return _physique;};
 
     protected:
         std::string _nom;
