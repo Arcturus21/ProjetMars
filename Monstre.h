@@ -5,12 +5,13 @@
 #include <string>
 #include <vector>
 
+#include "Type.h"
 #include "Attaque.h"
 
 class Monstre
 {
     public:
-        Monstre(int vie, int atq, int def, int atqSpe, int defSpe, float vitesse, std::string type, std::string nom);
+        Monstre(int vie, int atq, int def, int atqSpe, int defSpe, float vitesse, Type type, std::string nom);
         virtual ~Monstre();
 
         void recevoirDegats(int nbDegats);
@@ -18,11 +19,14 @@ class Monstre
         bool attaquer(Monstre& cible, const Attaque& atq);
         void boirePotionDeVie(int nbSoin);
 
+        float GetDegatAttaque(const Attaque& atq, const Monstre& cible) const;
+
         ///GETTER & SETTER
         bool IsAlive(){return _vie>0;};
         std::string GetNom(){return _nom;};
 
         Attaque GetAttaque(int indAttaque);
+        EnumType GetType()const{return _type.GetIndice();};
 
         void SetListAttaque(std::vector<Attaque> listAttaque);
 
@@ -37,7 +41,7 @@ class Monstre
         int _atqSpe;
         int _defSpe;
         float _vitesse;
-        std::string _type;
+        Type _type;
         std::string _nom;
 
         std::vector<Attaque> _listAttaque;

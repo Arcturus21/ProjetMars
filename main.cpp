@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Type.h"
 #include "Monstre.h"
 
 using namespace std;
@@ -12,8 +13,8 @@ using namespace std;
 
 int main()
 {
-    Monstre carapuce(45, 12, 15, 15, 10, 1.0, "eau", "Carapuce"),
-            salameche(42, 14, 10, 15, 10, 1.0, "feu", "Salameche");
+    Monstre carapuce(45, 12, 15, 15, 10, 1.0, Eau, "Carapuce"),
+            salameche(42, 14, 10, 15, 10, 1.0, Feu, "Salameche");
 
     Attaque atqCharge("charge", 25, Normal, true),
             atqEcume("ecume", 60, Eau, false),

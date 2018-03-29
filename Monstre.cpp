@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Monstre::Monstre(int vie, int atq, int def, int atqSpe, int defSpe, float vitesse, std::string type, std::string nom):
+Monstre::Monstre(int vie, int atq, int def, int atqSpe, int defSpe, float vitesse, Type type, std::string nom):
     _vie(vie), _maxPdv(vie), _attaque(atq), _defense(def), _atqSpe(atqSpe), _defSpe(defSpe), _vitesse(vitesse), _type(type), _nom(nom)
 {
     //ctor
@@ -51,6 +51,20 @@ Attaque Monstre::GetAttaque(int indAttaque)
     if(_listAttaque.size()<=indAttaque)
         return Attaque();
     return _listAttaque[indAttaque];
+}
+
+float Monstre::GetDegatAttaque(const Attaque& atq, const Monstre& cible) const
+{
+    const float ratioDegat = 0.1;
+    float degatInfliges=0;
+    if(atq.IsPhysique())
+    {
+        degatInfliges = atq.GetPuissance() * _attaque/cible._defense * Type::GetRapportType(atq.GetType(), cible.GetType()) * ratioDegat;
+    }
+    else
+    {
+        degatInfliges = atq.GetPuissance() * _atqSpe/cible._defSpe * Type::GetRapportType(atq.GetType(), cible.GetType()) * ratioDegat;
+    }
 }
 
 void Monstre::SetListAttaque(std::vector<Attaque> listAttaque)

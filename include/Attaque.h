@@ -3,16 +3,7 @@
 
 #include <string>
 
-typedef enum
-{
-    Normal,
-    Feu,
-    Eau,
-    Plante,
-    Electrique,
-    Tenebre,
-    Last
-}Type;
+#include "Type.h"
 
 class Attaque
 {
